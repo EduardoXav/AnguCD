@@ -22,20 +22,20 @@ export class ListCDsComponent implements OnInit {
         quantite: 10,
       }, {
         id: 2,
-        title: 'The Wall',
-        author: 'Pink Floyd',
+        title: 'graduation',
+        author: 'kanye west',
         price: 5,
-        thumbnail: 'https://upload.wikimedia.org/wikipedia/en/b/bc/Pink_Floyd_-_The_Wall.jpg',
-        dateDeSortie: new Date('1979-11-30'),
+        thumbnail: 'https://upload.wikimedia.org/wikipedia/en/9/9d/Graduationcover.png',
+        dateDeSortie: new Date('2007-09-11'),
         quantite: 15,
       }, {
         id: 3,
-        title: 'Wish You Were Here',
-        author: 'Pink Floyd',
+        title: 'Wholle Lotta Red',
+        author: 'Playboi Carti',
         price: 7,
-        thumbnail: 'https://upload.wikimedia.org/wikipedia/en/0/0b/Pink_Floyd_-_Wish_You_Were_Here.jpg',
-        dateDeSortie: new Date('1975-09-12'),
-        quantite: 7,
+        thumbnail: 'https://upload.wikimedia.org/wikipedia/en/1/1a/Whole_Lotta_Red.png',
+        dateDeSortie: new Date('2020-07-31'),
+        quantite: 1,
       }
     ];
   }

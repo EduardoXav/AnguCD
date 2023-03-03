@@ -5,6 +5,7 @@
     <p>Prix : {{ leCd.price | currency: "EUR"}}</p>
     <p>
         En Stock : <span [ngStyle]="{color: 'rgb(0,'+ leCd.quantite +',0)'}"> {{ leCd.quantite }}</span>
+        <button (click)="onAddCD()">Ajouter une unité</button>
     </p>
     <img [src]="leCd.thumbnail" [alt]="leCd.title">
 </div>
