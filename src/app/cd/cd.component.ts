@@ -11,13 +11,14 @@ import { CdsService } from '../services/cds.service';
 export class CdComponent implements OnInit {
   @Input() leCd!: Cd;
   unCd!: Cd;
+  idcd!: string;
 
   constructor(private cdservice: CdsService, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
-    const idcd = this.route.snapshot.params['id'];
-    if (idcd !== undefined) {
-      this.unCd = this.cdservice.getCdById(+idcd);
+    this.idcd = this.route.snapshot.params['id'];
+    if (this.idcd !== undefined) {
+      this.unCd = this.cdservice.getCdById(+this.idcd);
     } else {
 
       this.unCd = this.leCd;

@@ -7,7 +7,10 @@
         En Stock : <span [ngStyle]="{color: 'rgb(0,'+ unCd.quantite +',0)'}"> {{ unCd.quantite }}</span>
         <button (click)="onAddCD()">Ajouter une unité</button>
     </p>
+    <p *ngIf="idcd === undefined">
+        <a routerLink="/cd/{{unCd.id}}" class="button">Voir le détail</a>
+    </p>
     <img [src]="unCd.thumbnail" [alt]="unCd.title">
 
-    <a routerLink="/cd/{{unCd.id}}">Voir le détail</a>
+
 </div>
