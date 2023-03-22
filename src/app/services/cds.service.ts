@@ -38,4 +38,11 @@ export class CdsService {
         }
       ];
   }
+  getCdById(id: number): Cd {
+    const cd = this.getAllCDs().find(cd => cd.id === id);
+    if (cd) {
+      return cd;
+    }
+    throw new Error('CD introuvable');
+  }
 }
