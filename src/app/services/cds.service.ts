@@ -1,48 +1,41 @@
 import { Injectable } from '@angular/core';
 import { Cd } from '../models/cd';
+import { HttpClient } from '@angular/common/http';
+import { Observable, switchMap } from 'rxjs';
+import { ListCDsComponent } from '../list-cds/list-cds.component';
+import { map } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CdsService {
 
-  constructor() { }
+  constructor(private http: HttpClient) { }
 
-  getAllCDs(): Cd[] {
-    return [
-      
-        {
-          id: 1,
-          title: 'The Dark Side of the Moon',
-          author: 'Pink Floyd',
-          price: 10,
-          thumbnail: 'https://upload.wikimedia.org/wikipedia/en/3/3b/Dark_Side_of_the_Moon.png',
-          dateDeSortie: new Date('1973-03-01'),
-          quantite: 10,
-        }, {
-          id: 2,
-          title: 'graduation',
-          author: 'kanye west',
-          price: 5,
-          thumbnail: 'https://upload.wikimedia.org/wikipedia/en/9/9d/Graduationcover.png',
-          dateDeSortie: new Date('2007-09-11'),
-          quantite: 15,
-        }, {
-          id: 3,
-          title: 'Wholle Lotta Red',
-          author: 'Playboi Carti',
-          price: 7,
-          thumbnail: 'https://upload.wikimedia.org/wikipedia/en/1/1a/Whole_Lotta_Red.png',
-          dateDeSortie: new Date('2020-07-31'),
-          quantite: 1,
-        }
-      ];
+  getAllCDs(): Observable<Cd[]> {
+    return this.http.get<Cd[]>('http://localhost:3001/CD');
   }
-  getCdById(id: number): Cd {
-    const cd = this.getAllCDs().find(cd => cd.id === id);
-    if (cd) {
+
+  getCdById(id: number): Observable<Cd> {
+    const cd = this.http.get<Cd>('http://localhost:3001/CD/' + id);
+    if (cd === undefined) {
+      throw new Error('CD introuvable');
+    }else{
       return cd;
     }
-    throw new Error('CD introuvable');
+  }
+
+  addCD(cd: Cd): Observable<Cd> {
+    return this.http.post<Cd>('http://localhost:3001/CD/', cd);
+  }
+  
+  AddCD(cd: Cd): Observable<Cd>{
+    return this.getAllCDs().pipe(
+      map(cds => [...cds].sort((a, b) => a.id - b.id)),
+      map(cds_tries => cds_tries[cds_tries.length - 1]),
+      map(cd_max => (cd.id = cd_max.id + 1)),
+      switchMap(() => this.http.post<Cd>('http://localhost:3001/CD/', cd))
+    )
+
   }
 }

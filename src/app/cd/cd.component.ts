@@ -9,16 +9,16 @@ import { CdsService } from '../services/cds.service';
   styleUrls: ['./cd.component.scss']
 })
 export class CdComponent implements OnInit {
+
   @Input() leCd!: Cd;
   unCd!: Cd;
-  idcd!: string;
 
-  constructor(private cdservice: CdsService, private route: ActivatedRoute) { }
+  constructor(private cdservice:CdsService, private route:ActivatedRoute) { }
 
   ngOnInit(): void {
-    this.idcd = this.route.snapshot.params['id'];
-    if (this.idcd !== undefined) {
-      this.unCd = this.cdservice.getCdById(+this.idcd);
+    const idcd = this.route.snapshot.params['id'];
+    if (idcd !== undefined) {
+      this.cdservice.getCdById(+idcd).subscribe(cd => this.unCd = cd);
     } else {
 
       this.unCd = this.leCd;
